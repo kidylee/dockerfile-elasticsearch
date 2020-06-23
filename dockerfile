@@ -1,1 +1,1 @@
-docker.elastic.co/elasticsearch/elasticsearch:6.8.8
+From docker.elastic.co/elasticsearch/elasticsearch:6.8.8
