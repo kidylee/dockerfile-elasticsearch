@@ -16,6 +16,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Docker Login
+        uses: Azure/docker-login@v1
+        with:
+          login-server: registry.cn-hangzhou.aliyuncs.com
+          username: ${{ secrets.ALIYUN_DOCKER_USERNAME }}
+          password: ${{ secrets.ALIYUN_DOCKER_PASSWORD }} 
+      - uses: actions/checkout@v2
+
+      - name: Build image
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME
+
       - name: Push image
         run: |
           IMAGE_ID=$REPO_URL/$NAME_SPACE/$IMAGE_NAME
@@ -34,6 +45,6 @@ jobs:
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
-
+          docker login --username=${{ secrets.ALIYUN_DOCKER_USERNAME }} --password=${{ secrets.ALIYUN_DOCKER_PASSWORD }} registry.cn-hangzhou.aliyuncs.com
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
