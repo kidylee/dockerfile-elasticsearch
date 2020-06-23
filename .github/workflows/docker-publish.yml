@@ -45,6 +45,5 @@ jobs:
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
-          docker login --username=${{ secrets.ALIYUN_DOCKER_USERNAME }} --password=${{ secrets.ALIYUN_DOCKER_PASSWORD }} registry.cn-hangzhou.aliyuncs.com
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
+          docker build . -t $REPO_URL/$NAME_SPACE/$IMAGENAME:$VERSION
+          docker push $REPO_URL/$NAME_SPACE/$IMAGENAME:$VERSION
