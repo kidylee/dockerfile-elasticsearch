@@ -24,9 +24,6 @@ jobs:
           password: ${{ secrets.ALIYUN_DOCKER_PASSWORD }} 
       - uses: actions/checkout@v2
 
-      - name: Build image
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME
-
       - name: Push image
         run: |
           IMAGE_ID=$REPO_URL/$NAME_SPACE/$IMAGE_NAME
@@ -45,5 +42,5 @@ jobs:
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
-          docker build . -t $REPO_URL/$NAME_SPACE/$IMAGENAME:$VERSION
-          docker push $REPO_URL/$NAME_SPACE/$IMAGENAME:$VERSION
+          docker build . -t $REPO_URL/$NAME_SPACE/$IMAGE_NAME:$VERSION
+          docker push $REPO_URL/$NAME_SPACE/$IMAGE_NAME:$VERSION
